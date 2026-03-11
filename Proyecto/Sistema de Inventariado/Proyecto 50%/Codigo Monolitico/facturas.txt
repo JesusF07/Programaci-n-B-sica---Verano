@@ -1,0 +1,22 @@
+F572-17701
+123456789
+2026-02-20
+Sandro Junior Jesus Francisco
+Av. Alameda - Tingo Maria
+5
+001|Arroz Costeno 500g|Gr.|5|4.5
+002|Aceite Primor 1.8L|L|6|18.3
+003|Leche Gloria 400g|Gr.|12|4
+004|Fideos Molitalia 450g|Gr.|8|3
+005|Azucar Rubia Cartavio 5kg|Kg|2|19.2
+----
+
+=== FACTURA ===
+SERIE:F263-04794
+RUC:z
+FECHA:1111-11-11
+CLIENTE:**
+DIRECCION:****
+PRODUCTOS:1
+z|z|z|1|1.00
+----

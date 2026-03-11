@@ -1,0 +1,112 @@
+@startuml
+' Estilo y colores
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor LightBlue
+    BorderColor Black
+    ArrowColor Black
+}
+
+' Clase base abstracta
+abstract class Persona {
+    # string nombre
+    + Persona(string nombre)
+    + string getNombre()
+    + virtual void mostrar() = 0
+}
+
+' Herencia
+class Paciente {
+    - string dni
+    - int edad
+    - string telefono
+    + Paciente(string nombre, string dni, int edad, string telefono)
+    + string getDni()
+    + void mostrar()
+    + void validarDatos()
+}
+
+class Doctor {
+    - string codigo
+    - string especialidad
+    - double tarifa
+    + Doctor(string nombre, string codigo, string especialidad, double tarifa)
+    + string getCodigo()
+    + string getEspecialidad()
+    + void mostrar()
+    + void validarDatos()
+}
+
+' Composición
+class HistoriaClinica {
+    - vector<EntradaHistoria> entradas
+    + void agregarEntrada(string fecha, string nota, string diagnostico)
+    + void mostrar()
+}
+
+class EntradaHistoria {
+    - string fecha
+    - string nota
+    - string diagnostico
+    + EntradaHistoria(string fecha, string nota, string diagnostico)
+    + void mostrar()
+}
+
+' Asociación
+class Cita {
+    - int id
+    - Paciente* paciente
+    - Doctor* doctor
+    - string fecha
+    - string hora
+    - string motivo
+    - bool activa
+    + Cita(int id, Paciente* p, Doctor* d, string fecha, string hora, string motivo)
+    + int getId()
+    + Paciente* getPaciente()
+    + Doctor* getDoctor()
+    + string getFecha()
+    + string getHora()
+    + void cancelar()
+    + bool estaActiva()
+    + void mostrar()
+}
+
+' Agregación
+class Clinica {
+    - vector<unique_ptr<Persona>> personas
+    - vector<Cita> citas
+    - int nextCitaId
+    + Clinica()
+    + void registrarPaciente()
+    + void registrarDoctor()
+    + void agendarCita()
+    + void cancelarCita()
+    + void listarCitasPaciente()
+    + void listarCitasDoctor()
+    + Paciente* buscarPaciente(string dni)
+    + Doctor* buscarDoctor(string codigo)
+    + Cita* buscarCita(int id)
+}
+
+' Dependencia
+class Reporte {
+    + static void generarPorEspecialidad(Clinica& clinica)
+}
+
+' Relaciones
+Persona <|-- Paciente
+Persona <|-- Doctor
+
+Paciente *-- HistoriaClinica : contiene
+HistoriaClinica *-- EntradaHistoria : contiene
+
+Clinica o-- Doctor : administra
+Clinica -- Cita : gestiona
+
+Cita --> Paciente : asociado a
+Cita --> Doctor : asociado a
+
+Reporte ..> Clinica : depende
+
+@enduml

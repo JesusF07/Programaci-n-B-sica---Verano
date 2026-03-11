@@ -1,0 +1,75 @@
+@startuml
+' Configuración de estilos
+skinparam classAttributeIconSize 0
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+    ArrowColor Black
+}
+
+' Clase abstracta Vehiculo
+abstract class Vehiculo {
+    # id : string
+    # velocidad : int
+    --
+    + {abstract} moverse() : void
+    + mostrarInfo() : void
+    + {static} calcularEficiencia(consumo, distancia) : T
+    --
+    {method} ~Vehiculo()
+}
+
+' Clases derivadas
+class Auto {
+    - modelo : string
+    --
+    + moverse() : void
+    + mostrarInfo() : void
+}
+
+class Drone {
+    - alturaMaxima : double
+    --
+    + moverse() : void
+    + mostrarInfo() : void
+}
+
+class Camion {
+    - capacidadCarga : double
+    --
+    + moverse() : void
+    + mostrarInfo() : void
+}
+
+' Clase Reporte (amiga)
+class Reporte {
+    + generarReporte(v : Vehiculo*) : void
+}
+
+' Relaciones
+Vehiculo <|-- Auto
+Vehiculo <|-- Drone
+Vehiculo <|-- Camion
+
+' Relación de amistad
+Vehiculo <.. Reporte : <<friend>>
+
+' Nota con respuestas de reflexión
+note top of Vehiculo
+  **Reflexión Activa - Mis respuestas:**
+  
+  1. **Sin virtual en destructor:**
+     Si elimino virtual, solo se llama al destructor
+     de Vehiculo al borrar con puntero base.
+     ¡Habrá fugas de memoria!
+  
+  2. **Sin override:**
+     El código funciona pero pierdo verificación
+     del compilador. Puedo cometer errores sin darme cuenta.
+  
+  3. **Punteros vs Objetos directos:**
+     Punteros: permiten polimorfismo, heap, +flexibles
+     Directos: stack, +rápidos, sin polimorfismo
+end note
+
+@enduml

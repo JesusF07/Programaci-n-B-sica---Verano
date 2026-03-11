@@ -1,0 +1,28 @@
+@startuml
+
+class Persona {
+  nombre
+}
+
+class Direccion { 
+  ciudad
+}
+
+class Estudiante {
+}
+
+class Escuela {
+  mostrarEstudiante()
+}
+
+class Profesor {
+  enseñar()
+}
+
+Persona <|-- Estudiante       :herencia
+Estudiante *-- Direccion       : composicion
+Escuela o-- Estudiante         : agregacion
+Profesor -- Estudiante          :asociacion
+imprimir ..> Estudiante : dependencia       
+
+@enduml
